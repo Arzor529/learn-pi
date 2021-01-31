@@ -1,0 +1,68 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section id="work-shop" class="section-padding">
+    <div class="container-fluid" style="padding-top:20px;">
+        <div class="row" style="background-color: white; width: 100%; margin: 0 auto; margin-bottom:20px;">
+            <div class="col-md-6 col-sm-12">
+                <div class="card" style="width: 100%">
+                    <div class="card-body">
+                        <div>
+                            <h1 style="margin-top: 0px;">Raspberry Pi Setup</h1>
+                            <p class="card-text">
+                                This page will take you through step by step to successfully complete the first time setup of your Raspberry Pi.
+                            </p>
+                            <p>Watch the video to see what steps you have to take!</p>
+                            <h2 style="display:inline-block;">What will you need?</h2>
+                            <div style="display: flex;">
+                                <div style="text-align:center; max-width:fit-content; padding-right: 50px;">
+                                    <img class="img-fluid" src="{% static 'LearnPi/img/pi-setup/pi-plug-in.png' %}" alt="Set Up Pi" style="display: block;">
+                                    <p>A Raspberry Pi</p>
+                                </div>
+                                <div style="text-align:center; max-width:fit-content; padding-right: 50px;">
+                                    <img class="img-fluid" src="{% static 'LearnPi/img/pi-setup/power_supply.png' %}" alt="Set Up Pi" style="display: block;">
+                                    <p>A Power Supply</p>
+                                </div>
+                                <div style="text-align:center; max-width:fit-content;">
+                                    <img class="img-fluid" src="{% static 'LearnPi/img/pi-setup/sd_card.png' %}" alt="Set Up Pi" style="display: block;">
+                                    <p>SD card and SD card Reader</p>
+                                </div>
+                            </div>
+                            <div style="display: flex;">
+                                <div style="text-align:center; max-width:fit-content; padding-right: 50px;">
+                                    <img class="img-fluid" src="{% static 'LearnPi/img/pi-setup/keyboard_and_mouse.png' %}" alt="Set Up Pi" style="display: block;">
+                                    <p>A Keyboard and Mouse</p>
+                                </div>
+                                <div style="text-align:center; max-width:fit-content; padding-right: 50px;">
+                                    <img class="img-fluid" src="{% static 'LearnPi/img/pi-setup/tv_or_monitor.png' %}" alt="Set Up Pi" style="display: block;">
+                                    <p>A TV or Monitor</p>
+                                </div>
+                                <div style="text-align:center; max-width:fit-content;">
+                                    <img class="img-fluid" src="{% static 'LearnPi/img/pi-setup/hdmi.png' %}" alt="Set Up Pi" style="display: block;">
+                                    <p>A HDMI cable</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="card" style="width: 100%">
+                    <div class="card-body">
+                        <div style="max-width:80%;">
+                            <h2 style="display:inline-block;">Video Tutorial - Raspberry Pi Setup</h2>
+                            <video width="100%" height="264" controls poster="{% static 'LearnPi/vid/coverr-pelicans-dive-1578647763538.jpg' %}">
+                                <source src="{% static 'LearnPi/vid/coverr-pelicans-dive-1578647763538.mp4' %}" type="video/mp4" >
+                                Your browser does not support HTML5 video.
+                            </video>
+                        </div>
+                        <p style="margin-top:10px;">This video will take you through the specifics of setting up your Raspberry Pi based on what model you have selected.</p>
+                        <p>If you have any issues or questions during set up, click<a href="https://projects.raspberrypi.org/en/projects/raspberry-pi-getting-started" target="_blank"> here</a> to go to the Rasperry Pi website for more information!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

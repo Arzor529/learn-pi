@@ -1,0 +1,296 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load filterProfilePictures %}
+{% load filterProfilePictures %}
+{% load filterUnlockedAwards %}
+{% block content %}
+    <section id="work-shop" class="section-padding">
+        <div class="container" style="padding-top:20px;">
+            <div class="row" style=" width: fit-content;">
+                <div class="col-md-8 col-sm-12">
+                    <div class="card" style="width: 100%">
+                        <img class="card-img-top img-fluid" src="{% static 'LearnPi/img/banners/profile-banner.png' %}" alt="Card image cap" style=" margin: 0 auto; float: none; display: block;">
+                        <div class="card-body">
+                            <h1 style="margin-top: 0px;">Hi {{ufname}}!</h1>
+                            <p class="card-text">
+                                This is your profile!
+                            </p>
+                            <p>
+                                Here you can customize your profile picture, view your most recently unlocked badges, embed scratch projects for others to play and add friends on the site!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="card" style="width: 100%">
+                        <div class="card-body">
+                            <div style="text-align:center;">
+                                <div style="display: inline-block; margin-right:30px;">
+                                    <h2 style="text-align:center;">Username</h2>
+                                    <p style="text-align:center;">{{uname}}</p>
+                                </div>
+
+                                <div style="display: inline-block; margin-left:30px;">
+                                    <h2 style="text-align:center;">Award Points</h2>
+                                    <p style="text-align:center;">{{awardScore}} AP</p>
+                                </div>
+                            </div>
+                            {% for profilePic in prfpic %}
+                            {% for picChosen in prfpiccho|filterProfilePictures:profilePic.id %}
+                            <div style="display:inline;">
+                                <div style="width: 115px; background-color: #e1dfdf; border-radius: 50%; height: 115px; margin: 0 auto; border: 2px solid #c12248;">
+                                    <img class="img-fluid" src="{% static profilePic.profile_picture_path %}" alt="Card image cap" style=" padding: 20px; display: block;">
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% endfor %}
+                            {% for message in messages %}
+                            {% if "profile_pic" in message.tags %}
+                            <p style="text-align:center; margin-top:5px;">{{message}}</p>
+                            {% endif %}
+                            {% endfor %}
+                            <button type="button" onclick="profilePicModal()" class="btn btn-flat" style="color: white;background-color: #c12248; display: block; margin: 10px auto;">
+                                Change Profile Picture
+                            </button>
+                            <h2 style=" text-align: center;margin-top: 20px;">
+                                Logout
+                            </h2>
+                            <p style="text-align:center;">Click below to log out</p>
+                            <button onclick="location.href='{% url 'pages:logout' %}'" type="button" class="btn btn-flat" style="color: white;background-color: #c12248; display:block; margin:10px auto;">
+                                Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top:15px;" id="badges-friends">
+                <div class="col-md-8 col-sm-12">
+                    <div class="card" style="width: 100%">
+                        <div class="card-body">
+                            <h1 style="margin-top: 0px; text-align:center; margin-bottom:20px;">Your Recent Badges</h1>
+                            <div style="text-align:center;">
+
+                                {% if awardUnlockedCount > 0 %}
+                                {% for unlocked in awardUnlocked %}
+                                {% if unlocked.award_unlocked == True %}
+                                <div style="display: inline-block; padding:0 10px 0 10px;">
+                                    <img class="img-fluid" src="{% static unlocked.award.award_url %}" alt="Card image cap" style="display:inline-block; height:152px; width:152px;">
+                                    <p style="margin-top:10px;">{{unlocked.award.award}}</p>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+
+                                {% else %}
+
+                                <div class="card-body" style="border: thin solid #717f86; border-radius: 20px; margin: 0 auto; display: inline-block; padding: 20px;">
+                                    <h2 style="margin-bottom:20px;">You haven't unlocked any badges yet!</h2>
+                                    <p>Complete lessons to get started!</p>
+                                    <button onclick="location.href='{% url 'pages:lessons' %}'" type="button" class="btn btn-flat" style="color: white;background-color: #c12248; display:block; margin:10px auto;">
+                                        Go to Lessons
+                                    </button>
+                                </div>
+
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="card" style="width: 100%">
+                        <div class="card-body">
+                            <h1 style="margin-top: 0px; text-align:center;">Your Friends</h1>
+                            <p style="text-align:center;">Click below to view their profiles!</p>
+                            <div style="margin: 0 auto; width: 70%;">
+
+                                {% for friends in friendPic %}
+                                <div style="margin-bottom: 5px;">
+                                    <a href="{% url 'pages:profile_friend' friends.name  %}" style="text-decoration : none">
+                                        <p style="display:inline-block;">{{forloop.counter}}.&nbsp;</p>
+                                        <div style="width: 50px; background-color: #e1dfdf; border-radius: 50%; height: 50px; display: inline-block; margin-right:10px; border: 2px solid #c12248; vertical-align: middle;">
+                                            <img class="img-fluid" src="{% static friends.pic %}" alt="Card image cap" style=" padding: 6px; display: block; margin-bottom:10px; height:50px; width:50px;">
+                                        </div>
+                                        <p style="display:inline-block;">{{friends.name}}</p>
+                                    </a>
+                                </div>
+                                {% endfor %}
+
+                            </div>
+
+                            {% for message in messages %}
+                            {% if "add_friend" in message.tags %}
+                            <p style="text-align:center; margin-top:5px;">{{message}}</p>
+                            {% endif %}
+                            {% endfor %}
+
+                            <button type="button" onclick="addFriendModal()" class="btn btn-flat" style="color: white;background-color: #c12248; display: block; margin: 10px auto;">
+                                Add Friend
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top:15px;" id="projects">
+                <div class="col-md-12 col-sm-12">
+                    <div class="card" style="width: 100%">
+                        <div class="card-body">
+                            <h2 style="text-align:center; margin-bottom: 20px;">Your Scratch Project</h2>
+                            {% if scratchLinkCount > 0 %}
+                            {% for sp in scratchLink %}
+                            <div style="margin:0 auto; display:table;">{{sp.scratch_project_link |safe}}</div>
+                            {% endfor %}
+                            {% for message in messages %}
+                            {% if "add_project_success" in message.tags %}
+                            <p style="text-align:center; margin-top:5px;">{{message}}</p>
+                            {% endif %}
+                            {% endfor %}
+                            {% for message in messages %}
+                            {% if "edit_project_success" in message.tags %}
+                            <p style="text-align:center; margin-top:5px;">{{message}}</p>
+                            {% endif %}
+                            {% endfor %}
+                            <button type="button" onclick="editProjectModal()" class="btn btn-flat" style="color: white;background-color: #c12248; display: block; margin: 10px auto;">
+                                Edit Scratch Project
+                            </button>
+                            {% else %}
+                            <div class="card-body" style="border: thin solid #717f86; border-radius: 20px; margin: 0 auto; display: table; padding: 20px; text-align:center;">
+                                <h2 style="margin-bottom:20px;">You haven't embedded a Scratch Project yet!</h2>
+                                <p>Click below to embed one!</p>
+                                <button type="button" onclick="addProjectModal()" class="btn btn-flat" style="color: white;background-color: #c12248; display:block; margin:10px auto;">
+                                    Embed a Scratch Project
+                                </button>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Profile Picture Modal -->
+        <div class="modal fade" id="profilePictureModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title" id="exampleModalLongTitle" style=" display: inline;">Change Profile Picture</h1>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="text-align: center;">
+                        <p>Choose a new profile picture from the list below!</p>
+                        <div style="display:inline;">
+                            {% for profilePic in prfpic %}
+                            <div style="width: 115px; background-color: #e1dfdf; border-radius: 50%; height: 115px; display: inline-block; margin-right:10px; border: 2px solid #c12248;">
+                                <img class="img-fluid" src="{% static profilePic.profile_picture_path %}" alt="Card image cap" style=" padding: 20px; display: block; margin-bottom:10px;">
+                                <form action="{% url 'pages:profile_pic' profilePic.id  %}" method=POST style="text-align: center;">
+                                    {% csrf_token %}
+                                    <button id="change_profile_pic_btn" type="submit" class="btn btn-flat" style="color: white;background-color: #c12248; margin-bottom:10px;">Select</button>
+                                </form>
+                            </div>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Add Friend Modal -->
+        <div class="modal fade" id="addFriendModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title" id="exampleModalLongTitle" style="display: inline;">Add a Friend</h1>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Enter your friend's username below to add them!</p>
+                        <form name="loginForm" id="addFriendForm" action="{% url 'pages:add_friend' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group has-feedback">
+                                <!----- username -------------->
+                                <input class="form-control" placeholder="Username" id="loginid" type="text" autocomplete="on" name="learnPi-friend-uname">
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <button type="submit" class="btn btn-block btn-flat" style="background-color: #C12248; color: white;">Add Friend</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Add Scratch Project Modal -->
+        <div class="modal fade" id="addProjectModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title" id="exampleModalLongTitle" style="display: inline;">Add Scratch Project</h1>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Enter your scratch project's embed link.</p>
+                        <p>To get this iframe code, first share your Scratch Project, then click "embed".</p>
+                        <p>Once you have the iframe code, copy and paste it into the box below.</p>
+                        <form name="loginForm" id="addFriendForm" action="{% url 'pages:embed_project' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group has-feedback">
+                                <input class="form-control" placeholder="Scratch Project <iframe>" type="text" autocomplete="on" name="learnPi-scratch-project">
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <button type="submit" class="btn btn-block btn-flat" style="background-color: #C12248; color: white;">Add Project</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Edit Scratch Project Modal -->
+        <div class="modal fade" id="editProjectModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title" id="exampleModalLongTitle" style="display: inline;">Change Scratch Project</h1>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Enter your new scratch project's embed link.</p>
+                        <p>To get this iframe code, first share your Scratch Project, then click "embed".</p>
+                        <p>Once you have the iframe code, copy and paste it into the box below.</p>
+                        <form name="loginForm" id="editProjectForm" action="{% url 'pages:edit_embed_project' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group has-feedback">
+                                <input class="form-control" placeholder="Scratch Project <iframe>" type="text" autocomplete="on" name="learnPi-scratch-project-edit">
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <button type="submit" class="btn btn-block btn-flat" style="background-color: #C12248; color: white;">Edit Project</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!--/ work-shop-->
+{% endblock %}

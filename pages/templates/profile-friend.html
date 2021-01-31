@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load filterProfilePictures %}
+{% load filterProfilePictures %}
+{% load filterUnlockedAwards %}
+{% block content %}
+<section id="work-shop" class="section-padding">
+    <div class="container" style="padding-top:20px;">
+        <div class="row">
+            <div class="col-md-4 col-sm-12">
+                <div class="card" style="width: 100%">
+                    <div class="card-body">
+                        <div>
+                            <h1 style="margin-top: 0px; text-align:center;">{{uname}}'s Profile</h1>
+                        </div>
+                        <div style="text-align:center;">
+                            <div style="display: inline-block;">
+                                <h2 style="text-align:center;">Award Points</h2>
+                                <p style="text-align:center;">{{awardScore}} AP</p>
+                            </div>
+                        </div>
+                        {% for profilePic in prfpic %}
+                        {% for picChosen in prfpiccho|filterProfilePictures:profilePic.id %}
+                        <div style="display:inline;">
+                            <div style="width: 115px; background-color: #e1dfdf; border-radius: 50%; height: 115px; margin: 0 auto; border: 2px solid #c12248;">
+                                <img class="img-fluid" src="{% static profilePic.profile_picture_path %}" alt="Card image cap" style=" padding: 20px; display: block;">
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="card" style="width: 100%">
+                    <div class="card-body">
+                        <h2 style="text-align:center; margin-bottom: 20px;">Recent Badges</h2>
+
+                        <div style="text-align:center;">
+                            {% if awardUnlockedCount > 0 %}
+                            {% for unlocked in awardUnlocked %}
+                            {% if unlocked.award_unlocked == True %}
+                            <div style="display: inline-block; padding:0 10px 0 10px;">
+                                <img class="img-fluid" src="{% static unlocked.award.award_url %}" alt="Card image cap" style="display:inline-block; height:152px; width:152px;">
+                                <p style="margin-top:10px;">{{unlocked.award.award}}</p>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+
+                            {% else %}
+
+                            <div class="card-body" style="border: thin solid #717f86; border-radius: 20px; margin: 0 auto; display: inline-block; padding: 20px;">
+                                <h2 style="margin-bottom:20px;">{{uname}} hasn't unlocked any badges yet!</h2>
+
+                            </div>
+
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top:15px;" id="badges-friends">
+            <div class="col-md-4 col-sm-12">
+                <div class="card" style="width: 100%">
+                    <div class="card-body">
+                        <h2 style="text-align:center; margin-bottom: 20px;">Friends</h2>
+                        <div style="margin: 0 auto; width: 70%;">
+                            {% for friends in friendPic %}
+                            <div style="margin-bottom: 5px;">
+                                <p style="display:inline-block;">{{forloop.counter}}.&nbsp;</p>
+                                <div style="width: 50px; background-color: #e1dfdf; border-radius: 50%; height: 50px; display: inline-block; margin-right:10px; border: 2px solid #c12248; vertical-align: middle;">
+                                    <img class="img-fluid" src="{% static friends.pic %}" alt="Card image cap" style=" padding: 6px; display: block; margin-bottom:10px; height:50px; width:50px;">
+                                </div>
+                                <p style="display: inline-block;">{{friends.name}}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="card" style="width: 100%">
+                    <div class="card-body">
+                        <h2 style="text-align:center; margin-bottom: 20px;">Scratch Project</h2>
+                        {% if scratchLinkCount > 0 %}
+                        {% for sp in scratchLink %}
+                        <div style="margin:0 auto; display:table;">{{sp.scratch_project_link |safe}}</div>
+                        {% endfor %}
+                        
+                        {% else %}
+                        <div class="card-body" style="border: thin solid #717f86; border-radius: 20px; margin: 0 auto; display: table; padding: 20px; text-align:center;">
+                            <h2 style="margin-bottom:20px;">{{uname}} hasn't embedded a Scratch Project yet!</h2>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ work-shop-->
+{% endblock %}

@@ -1,0 +1,73 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section id="work-shop" class="section-padding">
+    <div class="container" style="padding-top:20px;">
+        <div class="row" style=" width: fit-content; margin: 0 auto; float: none;">
+            <div class="col-md-12 col-sm-12">
+                <div class="card" style="width: 100%">
+                    <img class="card-img-top img-fluid" src="{% static 'LearnPi/img/banners/Raspberry_Pi_Banner.png' %}" alt="Card image cap" style=" margin: 0 auto; float: none; display: block;">
+                    <div class="card-body">
+                        <h1 style="margin-top: 0px;">Welcome to Learn Pi!</h1>
+                        <p class="card-text">
+                            Learn Pi offers a range of simple and exciting Raspberry Pi based computing projects for students aged 12-14.
+                            <br />
+                            Learn about hardware, software, and programming to create exciting games and projects!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <h1>Quick Links</h1>
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <div class="card" style="width: fit-content">
+                            <img class="card-img-top img-fluid" src="{% static 'LearnPi/img/home/getting-started-with-raspberry-pi.png' %}" alt="Getting Started" style=" margin: 0 auto; float: none; display: block;">
+                            <div class="card-body">
+                                <h2>First time here?</h2>
+                                <p class="card-text">
+                                    Click below to view our setup guide to see what you'll need to start our projects!
+                                    </p>
+                                <button type="button" class="btn btn-flat" style="color: white;background-color: #c12248;" onclick="location.href='{% url 'pages:pi_setup' %}'">
+                                    Go!
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="card" style="width: fit-content">
+                            <img class="card-img-top img-fluid" src="{% static 'LearnPi/img/home/minecraft-banner.png' %}" alt="Card image cap" style=" margin: 0 auto; float: none; display: block;">
+                            <div class="card-body">
+                                <h2>Ready to mine and build?</h2>
+                                <p class="card-text">
+                                    Learn to program in python while building castles and more in Minecraft!
+                                </p>
+                                <button type="button" class="btn btn-flat" style="color: white;background-color: #c12248;" onclick="location.href='{% url 'pages:lessons-minecraft' %}'">
+                                    Go!
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="card" style="width: fit-content">
+                            <img class="card-img-top img-fluid" src="{% static 'LearnPi/img/home/scratch.png' %}" alt="Card image cap" style=" margin: 0 auto; float: none; display: block;">
+                            <div class="card-body">
+                                <h2>Game On!</h2>
+                                <p class="card-text">
+                                    Learn to program while building your very own video game using Scratch!
+                                </p>
+                                <button type="button" class="btn btn-flat" style="color: white;background-color: #c12248;">
+                                    Go!
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</section>
+<!--/ work-shop-->
+{% endblock %}

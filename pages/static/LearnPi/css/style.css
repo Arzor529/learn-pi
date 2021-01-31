@@ -1,0 +1,33 @@
+﻿.navbar-img {
+    float: left;
+    margin-top: -6px;
+}
+
+.navbar-span {
+    float: left;
+    margin-top: 0px;
+    margin-left: 10px;
+}
+
+.navbar-logo {
+    fill: #C12248;
+    float: left;
+    margin-top: 10px;
+}
+
+.img-fluid{
+    max-width: 100%;
+    height: auto;
+}
+
+.card-body{
+    background-color: white;
+    padding:10px;
+}
+.no-hover{
+
+}
+
+    no-hover:focus, no-hover:hover {
+        text-decoration:none;
+    }

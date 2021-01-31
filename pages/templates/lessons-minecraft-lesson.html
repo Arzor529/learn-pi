@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load filterQuizAnswers %}
+{% load static %}
+{% block content %}
+<section id="work-shop" class="section-padding">
+    <div class="container-fluid" style="padding-top:20px;">
+        <div class="row" style="background-color: white; width: 100%; margin: 0 auto; margin-bottom:20px;">
+            <div class="col-md-6 col-sm-12">
+                <div class="card" style="width: 100%">
+                    <div class="card-body">
+                        <div>
+                            <h1 style="margin-top: 0px;">Print Text in Minecraft</h1>
+                            <p class="card-text">
+                                In this lesson you will learn about methods and variables and how to use them to print a message in Minecraft!
+                            </p>
+                            <p>Watch the video then try the quiz to complete the lesson!</p>
+                            <h2 style="display:inline-block;">What will you need?</h2>
+                            <div style="text-align:center; max-width:fit-content;">
+                                <img class="img-fluid" src="{% static 'LearnPi/img/pi-setup/pi-plug-in.png' %}" alt="Set Up Pi" style="display: block;">
+                                <p>A setup Raspberry Pi</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="card" style="width: 100%">
+                    <div class="card-body">
+                        <div style="max-width:80%;">
+                            <h2 style="display:inline-block;">Video Tutorial - Print Text in Minecraft</h2>
+                            <video width="100%" height="264" controls poster="{% static 'LearnPi/vid/coverr-pelicans-dive-1578647763538.jpg' %}">
+                                <source src="{% static 'LearnPi/vid/coverr-pelicans-dive-1578647763538.mp4' %}" type="video/mp4">
+                                Your browser does not support HTML5 video.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="background-color: white; width: 100%; margin: 0 auto;">
+            <div class="col-md-6 col-sm-12">
+                <div class="card" style="width: 100%">
+                    <h2 style="display:inline-block;">{{ quiz.quiz }}!</h2>
+                    <div class="card-body">
+                        {% for qq in quizQuestion %}
+                        <p style="color: #c12248;">{{ qq.question }}</p>
+                        <ul>
+                            {% for qa in quizAnswer|filterQuizAnswers:qq.id %}
+                            <li><input type="radio" tag="{{qa.correct}}" class="quizQuestion" name="quizQuestion{{qq.id}}" id="quizAnswer{{qa.id}}" value="{{qa.answer}}" onclick="displayRadioValue({{qq.id|escapejs}},{{qa.id|escapejs}})"> {{qa.answer}} <br /></li>
+                            {% endfor %}
+                        </ul>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="card" style="width: 100%">
+                    <h2 style="display:inline-block;">Your Answer</h2>
+                    <p>When you select an option for each question the code will appear here</p>
+                    <div class="card-body">
+                        <div style="border-style: solid; border-width: thin; border-color: #333; margin-bottom:10px; padding:10px; background-color: aliceblue; color: black;">
+                            {% for qq in quizQuestion %}
+
+                            <p id="quiz-question{{qq.id}}" style="border-radius: 5px; padding:5px;"></p>
+
+                            {% endfor %}
+                        </div>
+                        <button class="btn btn-flat" style="color: white;background-color: #c12248;" onclick="submitQuiz()">
+                            Submit Answer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal - Quiz Correct -->
+        <div class="modal fade" id="quizModal-correct" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title" id="exampleModalLongTitle" style="display: inline;">Congratulations, you have completed the quiz!</h1>
+                    </div>
+                    <div class="modal-body">
+                        Click below to complete the lesson and unlock your award!
+                    </div>
+                    <div class="modal-footer">
+                        <form action="{% url 'pages:complete_lesson' '1' %}" method=POST>
+                            {% csrf_token %}
+                            <button id="complete_lesson_btn" type="submit" class="btn btn-flat" style="color: white;background-color: #c12248;">Complete lesson</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal - Quiz Incorrect -->
+        <div class="modal fade" id="quizModal-incorrect" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title" id="exampleModalLongTitle" style="display: inline;">That's not quite right. Try again!</h1>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Hint: Look at your incorrect answers highlighted in red!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-flat" style="color: white;background-color: #c12248;" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal - Quiz Invalid Sumbission -->
+        <div class="modal fade" id="quizModal-invalid" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title" id="exampleModalLongTitle" style="display: inline;">Invalid Submission!</h1>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Please answer all questions before submitting!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-flat" style="color: white;background-color: #c12248;" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

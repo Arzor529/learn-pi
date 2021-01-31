@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load filterUnlockedAwards %}
+{% block content %}
+<section id="work-shop" class="section-padding">
+    <div class="container" style="padding-top:20px;">
+        <div class="row" style=" width: fit-content; margin: 0 auto; float: none;">
+            <div class="col-md-12 col-sm-12">
+                <div class="card" style="width: 100%">
+                    <img class="card-img-top img-fluid" src="{% static 'LearnPi/img/banners/awards-banner.png' %}" alt="Card image cap" style=" margin: 0 auto; float: none; display: block;">
+                    <div class="card-body">
+                        <h1 style="margin-top: 0px;">Awards</h1>
+                        <p class="card-text">
+                            Here you will see any awards you have earned as badges.<br />
+                            To earn badges complete lessons! Can you collect them all?
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top:20px;">
+            <h1 style="margin-top: 0px;">Your Awards</h1>
+            {% for award in award %}
+            {% for unlocked in awardUnlocked|filterUnlockedAwards:award.id %}
+            {% if unlocked.award_unlocked == True %}
+            <div class="col-md-4 col-sm-12">
+                <div class="card" style="width: 100%">
+                    <div class="card-body" style="border-radius: 20px;">
+                        <h2 style="text-align:center;">{{award.award}}</h2>
+                        <p style="text-align:center; color: #11d086;">Unlocked!</p>
+                        <img class="img-fluid" src="{% static award.award_url %}" alt="Card image cap" style=" margin: 0 auto; float: none; display: block;">
+                        <div style="text-align:center;">
+                            <p style="margin-top:10px;">{{award.award_desc}}</p>
+                            <h2 style="text-align:center">{{award.award_score}} Award Points</h2>
+                            <p style="color:#c12248; font-weight:bold;">Nice work!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% elif unlocked.award_unlocked == False %}
+            <div class="col-md-4 col-sm-12">
+                <div class="card" style="width: 100%; opacity:50%;">
+                    <div class="card-body" style="border-radius: 20px;">
+                        <h2 style="text-align:center;">{{award.award}}</h2>
+                        <p style="text-align: center; color:red;">Locked!</p>
+                        <img class="img-fluid" src="{% static award.award_url %}" alt="Card image cap" style=" margin: 0 auto; float: none; display: block;">
+                        <div style="text-align:center;">
+                            <p style="margin-top:10px;">{{award.award_desc_locked}}</p>
+                            <h2 style="text-align:center">{{award.award_score}} Award Points</h2>
+                            <p style="color:#c12248; font-weight:bold;">Keep going!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!--/ work-shop-->
+{% endblock %}

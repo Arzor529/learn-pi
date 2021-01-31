@@ -1,0 +1,57 @@
+{% extends "registration/registration-base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<section id="work-shop" class="section-padding">
+    <div class="container-fluid" style="padding-top:60px;">
+        <div class="row" style=" width: fit-content; margin: 0 auto; float: none;">
+            <div class="col-md-12 col-sm-12">
+                <div class="card" style="width: 100%;">
+                    <img class="card-img-top img-fluid" src="{% static 'LearnPi/img/login/login-logo.png' %}" alt="Card image cap" style=" margin: 0 auto; float: none; display: block; border-radius:20px 20px 0 0;">
+                    <div class="card-body" style="border-radius:0 0 20px 20px; padding-right:20px; padding-left:20px;">
+                        <h1>LOGIN</h1>
+                        {% for message in messages%}
+                        <p>{{message}}</p>
+                        {% endfor %}
+                        <form name="loginForm" id="loginForm" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group has-feedback">
+                                <!----- username -------------->
+                                <input class="form-control" placeholder="Username" id="loginid" type="text" autocomplete="on" name="learnPi-username">
+                                <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span>
+                                <!---Alredy exists  ! -->
+                                <span class="form-control-feedback">
+                                    <svg viewBox="0 0 496 512" width="25px" height="25px" preserveAspectRatio="xMidYMid meet" class="navbar-img" alt="user-solid" style="margin:4px; fill: #C12248;">
+                                        <path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"></path>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <!----- password -------------->
+                                <input class="form-control" placeholder="Password" id="loginpsw" type="password" autocomplete="on" name="learnPi-password">
+                                <span style="display:none;font-weight:bold; position:absolute;color: grey;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginpsw"></span>
+                                <!---Alredy exists  ! -->
+                                <span class="form-control-feedback">
+                                    <svg viewBox="0 0 448 512" width="25px" height="25px" preserveAspectRatio="xMidYMid meet" class="navbar-img" alt="lock-solid" style="margin:4px; fill: #C12248;">
+                                        <path d="M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z"></path>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <button type="submit" class="btn btn-block btn-flat" style="background-color: #C12248; color: white;">Sign In</button>
+                                </div>
+                            </div>
+                            <p style="padding-top:10px;"><a href="#">Forgotten Password?</a></p>
+                            <p style="padding-top:10px;"><span>Not a member? </span><a href="#" style="text-decoration: underline;">Sign Up Now!</a></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    {% endblock %}

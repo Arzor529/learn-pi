@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section id="work-shop" class="section-padding">
+    <div class="container" style="padding-top:20px;">
+        <div class="row" style=" width: fit-content; margin: 0 auto; float: none;">
+            <div class="col-md-12 col-sm-12">
+                <div class="card" style="width: 100%">
+                    <img class="card-img-top img-fluid" src="{% static 'LearnPi/img/lessons-minecraft/minecraft_mainbanner.png' %}" alt="Card image cap" style=" margin: 0 auto; float: none; display: block;">
+                    <div class="card-body">
+                        <h1 style="margin-top: 0px;">Minecraft Projects</h1>
+                        <p class="card-text">
+                            With these Minecraft projects you will learn the to set up Minecraft on your Pi and use Python to modify your in-game world
+                            <br> to learn the basics and build up to creating castles, diamond transporters and anything you can imagine!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <h1>Lessons</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-12">
+                <div class="card" style="width: fit-content">
+                    <img class="card-img-top img-fluid" src="{% static 'LearnPi/img/lessons-minecraft/lesson-1.png' %}" alt="Card image cap" style=" margin: 0 auto; float: none; display: block;">
+                    <div class="card-body">
+                        <h2 style="display:inline-block;">Lesson 1 - Print text in Minecraft</h2> 
+                        <span style="float:right; padding-top: 7px;">
+                            10-15 mins
+                        </span>
+                        <p class="card-text">
+                            Learn to write some simple Python code to print "Hello World" to your in-game world.
+                        </p>
+                        <button type="button" class="btn btn-flat" style="color: white;background-color: #c12248;" onclick="location.href='{% url 'pages:lessons-minecraft-lesson' '1' %}'">
+                            Go!
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

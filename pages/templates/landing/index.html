@@ -1,0 +1,43 @@
+﻿{% extends 'landing/landing-base.html' %}
+{% load static %}
+{% block content %}
+<section id="work-shop" class="section-padding">
+    <div class="container" style="padding-top:20px;">
+        <div class="row" style=" width: fit-content; margin: 0 auto; float: none;">
+            <div class="col-md-6 col-sm-12">
+                <div class="card" style="width: 100%">
+                    <img class="card-img-top img-fluid" src="{% static 'LearnPi/img/landing/Raspberry-Pi-Cartoon.png' %}" alt="Card image cap" style=" margin: 0 auto; float: none; display: block;">
+                    <div class="card-body">
+                        <h1 style="margin-top: 0px;">Welcome to Learn Pi!</h1>
+                        <p class="card-text">
+                            Learn Pi offers a range of simple and exciting Raspberry Pi based computing projects for students aged 12-14.
+                            <br />
+                            Learn about hardware, software, and programming to create exciting games and projects!
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="card" style="width: 100%">
+                    <div class="card-body">
+                        <h1 style="margin-top: 0px;">What does Learn Pi Offer?</h1>
+                        <p class="card-text"> Learn Pi offers various exciting features including:</p>
+                        <ul style="list-style-type:disc; margin-bottom:20px;">
+                            <li class="card-text">Learning to set up and use a Raspberry Pi!</li>
+                            <li class="card-text">Using programming to change the way you play Minecraft!</li>
+                            <li class="card-text">Creating your very own game using Scratch!</li>
+                            <li class="card-text">You can add your friends to share the Learn Pi Experience!</li>
+                            <li class="card-text">Earning Rewards that will appear on your profile!</li>
+                            <li class="card-text">You can place your custom games on your profile for friends to play!</li>
+                        </ul>
+                        <h2>What are you waiting for? Create your account and get started!</h2>
+                        <button type="button" class="btn btn-flat" style="color: white;background-color: #c12248;">Sign Up!</button>
+                        <span style="font-size: 14px; margin-left: 20px;">Already a member? Log in <a href="{% url 'pages:login' %}">here</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ work-shop-->
+{% endblock %}
